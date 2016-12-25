@@ -1,13 +1,25 @@
-#include <boost/lambda/lambda.hpp>
 #include <iostream>
-#include <iterator>
-#include <algorithm>
+#include <vector>
+#include <fstream>
+
+#include "GroupPreferredHours.h"
+#include "LecturerPreferredHours.h"
+#include "RoomPreferences.h"
+#include "Parser.h"
+
+std::vector<GroupPreferredHours> groupsPreferredHours;
+std::vector<LecturerPreferredHours> lecturersPreferredHours;
+std::vector<RoomPreferences> roomPreferences;
 
 int main()
 {
-	using namespace boost::lambda;
-	typedef std::istream_iterator<int> in;
+	if (Parser::parseGroups("groupsPreferredHours.json", groupsPreferredHours)) std::cout << "Groups imported" << std::endl;
+	else std::cout << "Couldn't import groups prefferences" << std::endl;
 
-	std::for_each(
-		in(std::cin), in(), std::cout << (_1 * 3) << " ");
+	if (Parser::parseLecturers("lecturersPreferredHours.json", lecturersPreferredHours)) std::cout << "Lecturers imported" << std::endl;
+	else std::cout << "Couldn't import lecturers prefferences" << std::endl;
+
+	if (Parser::parseRooms("roomPreferences.json", roomPreferences)) std::cout << "Rooms imported" << std::endl;
+	else std::cout << "Couldn't import rooms prefferences" << std::endl;
+	std::cin.get();
 }
