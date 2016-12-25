@@ -112,6 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Displayer.cpp" />
     <ClCompile Include="GroupPreferredHours.cpp" />
     <ClCompile Include="LecturerPreferredHours.cpp" />
     <ClCompile Include="main.cpp" />
@@ -119,10 +120,12 @@
     <ClCompile Include="RoomPreferences.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Displayer.h" />
     <ClInclude Include="GroupPreferredHours.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="LecturerPreferredHours.h" />
     <ClInclude Include="Parser.h" />
+    <ClInclude Include="Preferences.h" />
     <ClInclude Include="RoomPreferences.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

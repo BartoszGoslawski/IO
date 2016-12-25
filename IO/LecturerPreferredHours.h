@@ -1,12 +1,16 @@
 #pragma once
+#include "Preferences.h"
 
-class LecturerPreferredHours
+class LecturerPreferredHours : Preferences
 {
 public:
-	int group_id;
+	int lecturer_id;
 	int day_id;
 	int hour_id;
 	int count;
 
-	LecturerPreferredHours(int group, int day, int hour, int count);
+	LecturerPreferredHours(int lecturer, int day, int hour, int count);
+
+	void printHeader() override;
+	void printData() override;
 };
