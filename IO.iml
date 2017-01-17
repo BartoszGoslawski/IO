@@ -11,5 +11,7 @@
     <orderEntry type="library" name="org.json:json:20070829" level="project" />
     <orderEntry type="library" name="org.codeartisans:org.json:20130212" level="project" />
     <orderEntry type="library" name="org.apache.clerezza.ext:org.json.simple:0.4" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="org.json:json:20160810" level="project" />
   </component>
 </module>

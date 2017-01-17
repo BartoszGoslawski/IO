@@ -1,15 +1,16 @@
 import org.json.JSONObject;
 import jdk.nashorn.internal.parser.JSONParser;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
 
-        String planGrupy[][]=new String[5][12];
+        PlanGrupy[][][] planGrupy = new PlanGrupy[4][5][12]; // ilosc grup, dni, godziny
         ArrayList<GroupPreferredHours>grouppref=new ArrayList<>();
         ArrayList<LecturerPreferredHours>lecturepref=new ArrayList<>();
         ArrayList<RoomPreferences>roompref=new ArrayList<>();
@@ -60,14 +61,22 @@ public class Main {
         Displayer.printlecturers(lecturer);
         Displayer.printSubject(subject);
 
-       if( PlanTrywialny.Plan(subject,lecturer,room,planGrupy))
-        {
-            System.out.println("Udane ukladanie planu");
+
+        planGrupy = PlanTrywialny.Plan(subject,lecturer,room);
+
+
+        for (int i = 0; i < 4; ++i) {
+            System.out.println("Plan Grupy " + i+1);
+            for (int j = 0; j < 12; j++) {  //for po tablicy ilosc godizn w dniu
+                for (int k = 0; k < 5; k++) { //ilosc dni
+                    planGrupy[i][k][j].Print(); // grupa, dni, godziny
+                    System.out.print("\t\t");
+                }
+                System.out.println();
+            }
         }
-        else
-           System.out.println("Błąd przy ukladaniu planu");
 
-
+        Parser.exportScheduleToJSON(planGrupy);
 
     }
 }

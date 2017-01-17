@@ -12,7 +12,8 @@ public class PlanTrywialny {
 
 
 
-    static Boolean Plan(ArrayList<Subject> subjects, ArrayList<Lecturer> lecturers, ArrayList<Room> rooms, String planGrupy[][]) {
+
+    static PlanGrupy[][][] Plan(ArrayList<Subject> subjects, ArrayList<Lecturer> lecturers, ArrayList<Room> rooms) {
         int pom = 0;
         int idsub = 0;
         int idlect = 0;
@@ -167,7 +168,7 @@ public class PlanTrywialny {
                 for(int pomtab=0;pomtab<tab.length;pomtab++) {
                     if(tab[pomtab]!=0){
                         System.out.println("NIE WSZYSTKEI ZAJECIA ZOSTALY PRZYDZIELONE");
-                        return false;
+                        return null;
                     }
                 }
             }
@@ -191,8 +192,7 @@ public class PlanTrywialny {
             pom=0;
         }
         System.out.print("\n\n");
-
-        return true;
+        return planGrupies;
     }
 
 }

@@ -1,18 +1,16 @@
 
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
@@ -21,18 +19,7 @@ import org.json.simple.JSONObject;
  */
 public class Parser {
 
-
-    public
-
-
-//static JSONParser parser=new JSONParser();
-
-
-    /*static bool parseGroups(std::string filename, std::vector<GroupPreferredHours> & groupPrefHours);
-    static bool parseLecturers(std::string filename, std::vector<LecturerPreferredHours> & lecturerPrefHours);
-    static bool parseRooms(std::string filename, std::vector<RoomPreferences> & roomPref);*/
-
- static Boolean parseGroupsprefferedhours(String filename, ArrayList<GroupPreferredHours> preferrence){
+    public static Boolean parseGroupsprefferedhours(String filename, ArrayList<GroupPreferredHours> preferrence){
         String pom;
         try {
             JSONParser parser=new JSONParser();
@@ -42,7 +29,7 @@ public class Parser {
             Object obj=parser.parse(new FileReader(filename));
 
 
-            JSONArray array = (JSONArray)obj;
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray)obj;
             System.out.print(array.get(0));
             System.out.println();
             GroupPreferredHours.printHeader();
@@ -75,8 +62,7 @@ public class Parser {
 
 
     }
-
-    static Boolean parseLecturerpreferredhours(String filename, ArrayList<LecturerPreferredHours> preferrence){
+    public static Boolean parseLecturerpreferredhours(String filename, ArrayList<LecturerPreferredHours> preferrence){
         String pom;
         try {
             JSONParser parser=new JSONParser();
@@ -86,7 +72,7 @@ public class Parser {
             Object obj=parser.parse(new FileReader(filename));
 
 
-            JSONArray array = (JSONArray)obj;
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray)obj;
             System.out.print(array.get(0));
             System.out.println();
             LecturerPreferredHours.printHeader();
@@ -118,9 +104,7 @@ public class Parser {
 
 
     }
-
-
-    static Boolean parseRoompreferrences(String filename, ArrayList<RoomPreferences> preferrence) {
+    public static Boolean parseRoompreferrences(String filename, ArrayList<RoomPreferences> preferrence) {
 String pom;
         try {
     JSONParser parser=new JSONParser();
@@ -159,7 +143,7 @@ for(int i=0;i<array.size();i++) {
 
 
     }
-    static Boolean parseRoom(String filename, ArrayList<Room> preferrence) {
+    public static Boolean parseRoom(String filename, ArrayList<Room> preferrence) {
         String pom;
         try {
             JSONParser parser=new JSONParser();
@@ -169,7 +153,7 @@ for(int i=0;i<array.size();i++) {
             Object obj=parser.parse(new FileReader(filename));
 
 
-            JSONArray array = (JSONArray)obj;
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray)obj;
             System.out.print(array.get(0));
             System.out.println();
             Room.printHeader();
@@ -200,8 +184,7 @@ for(int i=0;i<array.size();i++) {
 
 
     }
-
-    static Boolean parselecturers(String filename, ArrayList<Lecturer> preferrence) {
+    public static Boolean parselecturers(String filename, ArrayList<Lecturer> preferrence) {
         String pom;
         try {
             JSONParser parser=new JSONParser();
@@ -211,7 +194,7 @@ for(int i=0;i<array.size();i++) {
             Object obj=parser.parse(new FileReader(filename));
 
 
-            JSONArray array = (JSONArray)obj;
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray)obj;
             System.out.print(array.get(0));
             System.out.println();
             Room.printHeader();
@@ -251,7 +234,7 @@ for(int i=0;i<array.size();i++) {
 
 
     }
-    static Boolean parseSubject(String filename, ArrayList<Subject> preferrence) {
+    public static Boolean parseSubject(String filename, ArrayList<Subject> preferrence) {
         String pom;
         try {
             JSONParser parser=new JSONParser();
@@ -261,7 +244,7 @@ for(int i=0;i<array.size();i++) {
             Object obj=parser.parse(new FileReader(filename));
 
 
-            JSONArray array = (JSONArray)obj;
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray)obj;
             System.out.print(array.get(0));
             System.out.println();
             Room.printHeader();
@@ -304,5 +287,29 @@ for(int i=0;i<array.size();i++) {
 
     }
 
+    public static void exportScheduleToJSON(PlanGrupy[][][] schedule) throws FileNotFoundException
+    {
+        try
+        {
+            Gson gson = new Gson(); // GSON
+
+            String scheduleGSON = gson.toJson(
+                    schedule,
+                    new TypeToken<PlanGrupy[][][]>() {
+                    }.getType());
+
+            org.json.JSONArray scheduleJSON = new org.json.JSONArray(scheduleGSON);
+
+            File scheduleJSONFile = new File("scheduleJSON.json");
+            PrintWriter scheduleJSONWriter = new PrintWriter("scheduleJSON.json");
+            scheduleJSONWriter.println(scheduleJSON);
+            scheduleJSONWriter.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
 
 }
