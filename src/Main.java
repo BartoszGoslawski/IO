@@ -2,6 +2,7 @@ import org.json.JSONObject;
 import jdk.nashorn.internal.parser.JSONParser;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,19 +65,39 @@ public class Main {
 
         planGrupy = PlanTrywialny.Plan(subject,lecturer,room);
 
+        ArrayList<Cell> cells = new ArrayList<>();
 
-        for (int i = 0; i < 4; ++i) {
-            System.out.println("Plan Grupy " + i+1);
-            for (int j = 0; j < 12; j++) {  //for po tablicy ilosc godizn w dniu
-                for (int k = 0; k < 5; k++) { //ilosc dni
-                    planGrupy[i][k][j].Print(); // grupa, dni, godziny
-                    System.out.print("\t\t");
+        for (int i = 0; i < planGrupy.length; ++i)
+        {
+            for (int j = 0; j < planGrupy[i].length; ++j)
+            {
+                for (int k = 0; k < planGrupy[i][j].length; ++k)
+                {
+                    cells.add(new Cell(i+1,j+1,k+1, planGrupy[i][j][k].idlect, planGrupy[i][j][k].idsub, planGrupy[i][j][k].idroom));
+                    System.out.println("Dodano komorke: " + i + " " + j + " " + k );
+                    //System.out.println(cells.get(0));
                 }
-                System.out.println();
             }
         }
 
-        Parser.exportScheduleToJSON(planGrupy);
+
+//        for (int i = 0; i < 4; ++i) {
+//            System.out.println("Plan Grupy " + i+1);
+//            for (int j = 0; j < 12; j++) {  //for po tablicy ilosc godizn w dniu
+//                for (int k = 0; k < 5; k++) { //ilosc dni
+//                    planGrupy[i][k][j].Print(); // grupa, dni, godziny
+//                    System.out.print("\t\t");
+//                }
+//                System.out.println();
+//            }
+//        }
+
+        for(Cell cell : cells)
+        {
+            System.out.println(cell);
+        }
+
+        Parser.exportScheduleToJSON(cells);
 
     }
 }

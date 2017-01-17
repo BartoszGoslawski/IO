@@ -287,7 +287,7 @@ for(int i=0;i<array.size();i++) {
 
     }
 
-    public static void exportScheduleToJSON(PlanGrupy[][][] schedule) throws FileNotFoundException
+    public static void exportScheduleToJSON(ArrayList<Cell> schedule) throws FileNotFoundException
     {
         try
         {
@@ -295,7 +295,7 @@ for(int i=0;i<array.size();i++) {
 
             String scheduleGSON = gson.toJson(
                     schedule,
-                    new TypeToken<PlanGrupy[][][]>() {
+                    new TypeToken<ArrayList<Cell>>() {
                     }.getType());
 
             org.json.JSONArray scheduleJSON = new org.json.JSONArray(scheduleGSON);
