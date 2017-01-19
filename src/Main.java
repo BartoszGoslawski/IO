@@ -54,6 +54,8 @@ public class Main {
         else  System.out.println("Error subject");
         System.out.println("\n\n\n\n\n");
 
+        ScheduleGenerator scheduleGenerator = new ScheduleGenerator(lecturer, subject, room, lecturepref, grouppref, 5);
+
 
         Displayer.printPreferencesgroomprefer(roompref);
         Displayer.printPreferencesgrouphours(grouppref);
@@ -63,41 +65,41 @@ public class Main {
         Displayer.printSubject(subject);
 
 
-        planGrupy = PlanTrywialny.Plan(subject,lecturer,room);
+        planGrupy = scheduleGenerator.generateSchedule();
 
-        ArrayList<Cell> cells = new ArrayList<>();
-
-        for (int i = 0; i < planGrupy.length; ++i)
-        {
-            for (int j = 0; j < planGrupy[i].length; ++j)
-            {
-                for (int k = 0; k < planGrupy[i][j].length; ++k)
-                {
-                    cells.add(new Cell(i+1,j+1,k+1, planGrupy[i][j][k].idlect, planGrupy[i][j][k].idsub, planGrupy[i][j][k].idroom));
-                    System.out.println("Dodano komorke: " + i + " " + j + " " + k );
-                    //System.out.println(cells.get(0));
-                }
-            }
-        }
-
-
-//        for (int i = 0; i < 4; ++i) {
-//            System.out.println("Plan Grupy " + i+1);
-//            for (int j = 0; j < 12; j++) {  //for po tablicy ilosc godizn w dniu
-//                for (int k = 0; k < 5; k++) { //ilosc dni
-//                    planGrupy[i][k][j].Print(); // grupa, dni, godziny
-//                    System.out.print("\t\t");
+//        ArrayList<Cell> cells = new ArrayList<>();
+//
+//        for (int i = 0; i < planGrupy.length; ++i)
+//        {
+//            for (int j = 0; j < planGrupy[i].length; ++j)
+//            {
+//                for (int k = 0; k < planGrupy[i][j].length; ++k)
+//                {
+//                    cells.add(new Cell(i+1,j+1,k+1, planGrupy[i][j][k].idlect, planGrupy[i][j][k].idsub, planGrupy[i][j][k].idroom));
+//                    System.out.println("Dodano komorke: " + i + " " + j + " " + k );
+//                    //System.out.println(cells.get(0));
 //                }
-//                System.out.println();
 //            }
 //        }
 
-        for(Cell cell : cells)
-        {
-            System.out.println(cell);
+        System.out.println("\n\n");
+        for (int i = 0; i < 4; ++i) {
+            System.out.println("Plan Grupy " + (i+1));
+            for (int j = 0; j < 12; j++) {  //for po tablicy ilosc godizn w dniu
+                for (int k = 0; k < 5; k++) { //ilosc dni
+                    planGrupy[i][k][j].Print(); // grupa, dni, godziny
+                    System.out.print("\t\t");
+                }
+                System.out.println();
+            }
         }
 
-        Parser.exportScheduleToJSON(cells);
+//        for(Cell cell : cells)
+//        {
+//            System.out.println(cell);
+//        }
+//
+//        Parser.exportScheduleToJSON(cells);
 
     }
 }

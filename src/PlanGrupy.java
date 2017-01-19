@@ -11,8 +11,13 @@ public class PlanGrupy {
         this.idlect=0;
         this.idsub=0;
         this.idroom=0;
-
     }
+    PlanGrupy(int lect, int sub, int room){
+        this.idlect = lect;
+        this.idsub = sub;
+        this.idroom = room;
+    }
+
 void Print() {
     System.out.print(idsub+","+" "+idlect+","+" "+idroom+"    ");
 }
