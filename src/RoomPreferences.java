@@ -6,11 +6,11 @@ public class RoomPreferences {
     public
 
     int lecturer_id;
-    int room_number;
+    int id;
 
     RoomPreferences(int lecturer, int room){
-        this.lecturer_id= lecturer;
-        this.room_number= room;
+        this.lecturer_id = lecturer;
+        this.id = room;
 
     }
 
@@ -20,6 +20,6 @@ public class RoomPreferences {
     }
 
     void printData() {
-        System.out.println(lecturer_id+"\t"+room_number);
+        System.out.println(lecturer_id+"\t"+id);
     }
 }

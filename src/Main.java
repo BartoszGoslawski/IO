@@ -54,7 +54,7 @@ public class Main {
         else  System.out.println("Error subject");
         System.out.println("\n\n\n\n\n");
 
-        ScheduleGenerator scheduleGenerator = new ScheduleGenerator(lecturer, subject, room, lecturepref, grouppref, 5);
+        ScheduleGenerator scheduleGenerator = new ScheduleGenerator(lecturer, subject, room, lecturepref, grouppref, roompref, 5);
 
 
         Displayer.printPreferencesgroomprefer(roompref);

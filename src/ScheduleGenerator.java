@@ -11,6 +11,7 @@ public class ScheduleGenerator
 
     ArrayList<GroupPreferredHours> groupPrefs;
     ArrayList<LecturerPreferredHours> lecturersPrefs;
+    ArrayList<RoomPreferences> roomPrefs;
 
     //ArrayList<Cell> schedule;
     PlanGrupy[][][] schedule;
@@ -26,6 +27,7 @@ public class ScheduleGenerator
                              ArrayList<Room> rooms,
                              ArrayList<LecturerPreferredHours> lecturersPrefs,
                              ArrayList<GroupPreferredHours> groupPrefs,
+                             ArrayList<RoomPreferences> roomPrefs,
                              int groupsAmount)
     {
         this.lecturers = lecturers;
@@ -33,6 +35,7 @@ public class ScheduleGenerator
         this.rooms = rooms;
         this.lecturersPrefs = lecturersPrefs;
         this.groupPrefs = groupPrefs;
+        this.roomPrefs = roomPrefs;
 
         this.groups = groupsAmount;
         //this.schedule = new ArrayList<Cell>();
@@ -78,6 +81,7 @@ public class ScheduleGenerator
 
     private int chooseRoom(Subject sub, int day, int hour, int group)
     {
+
         for (int i = 0; i < rooms.size(); ++i)
         {
             if (rooms.get(i).roomType == sub.roomType)
@@ -85,15 +89,35 @@ public class ScheduleGenerator
                     return rooms.get(i).id;
         }
         return -1; // no available lecturer for this hour
+
+    }
+    private int choosePreferedRoom(Subject sub, int lecturer, int day, int hour, int group)
+    {
+        for (int i = 0; i < roomPrefs.size(); ++i)
+        {
+            if (roomPrefs.get(i).lecturer_id != lecturer)
+                continue;
+            else
+            {
+                if (checkIfRoomAvailable(roomPrefs.get(i).id, day, hour, group)) return roomPrefs.get(i).id;
+            }
+        }
+        return -1; // no available prefered room for this hour
     }
 
-    private boolean insertIntoSchedule(Subject sub, int group, int day, int hour)
+    private boolean insertIntoSchedule(Subject sub, int group, int day, int hour, boolean usePreferences)
     {
-        int room = chooseRoom(sub, day, hour, group);
-        if (room == -1) return false;
+        int lecturer;
+            lecturer = chooseLecturer(sub, day, hour, group);
 
-        int lecturer = chooseLecturer(sub, day, hour, group);
         if (lecturer == -1) return false;
+
+        int room;
+        if (usePreferences)
+            room = choosePreferedRoom(sub, lecturer, day, hour, group);
+        else
+            room = chooseRoom(sub, day, hour, group);
+        if (room == -1) return false;
 
         schedule[group][day][hour] = new PlanGrupy(lecturer, sub.id, room);
         //System.out.println("Dodano przedmiot! Grupa: " + group +  " Dzien: " + day + " Godzina: " + hour);
@@ -118,7 +142,7 @@ public class ScheduleGenerator
                         for (int sub = 0; sub < subjectsCopy.size(); ++sub) // jesli pierwszy sprawdzany przedmiot nie pasuje na ta godzine, sprawdzamy kolejny
                         {
                             Subject temp = subjectsCopy.remove(0);
-                            if (!insertIntoSchedule(temp, i, j, k))
+                            if (!insertIntoSchedule(temp, i, j, k, true)) // we are using preferences
                             {
                                 subjectsCopy.add(temp); // jesli nie dodal, na koniec kolejki
                             }

@@ -122,8 +122,8 @@ for(int i=0;i<array.size();i++) {
     RoomPreferences rp = new RoomPreferences(0,0);
     JSONObject obj2 = (JSONObject) array.get(i);
 
-    pom=obj2.get("room_number").toString();
-    rp.room_number=(int)Double.parseDouble(pom);
+    pom=obj2.get("room_id").toString();
+    rp.id=(int)Double.parseDouble(pom);
     pom=obj2.get("lecturer_id").toString();
     rp.lecturer_id=(int)Double.parseDouble(pom);
     preferrence.add(i,rp);
